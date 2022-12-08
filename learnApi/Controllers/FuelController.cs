@@ -117,5 +117,21 @@ namespace learnApi.Controllers
 
             return NoContent();
         }
+
+        [HttpDelete("{fuelId}")]
+        public ActionResult DeleteFuel(int carId, int fuelId)
+        {
+            var car = CarEntity.AllCars.Cars.FirstOrDefault(c => c.Id == carId);
+            if (car == null)
+                return NotFound();
+
+            var fuelFromEntity = car.Fuels.FirstOrDefault(f => f.Id == fuelId);
+            if (fuelFromEntity == null)
+                return NotFound();
+
+            car.Fuels.Remove(fuelFromEntity);
+
+            return NoContent();
+        }
     }
 }
